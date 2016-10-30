@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<constant name="struts.devMode" value="true"></constant>
+<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+<package name="p1" extends="struts-default">
+<!-- 在package中，定义标签要有先后顺序result-types
+interceptors
+default-interceptor-ref
+default-action-ref
+default-class-ref
+global-results
+global-exception-mappings
+action*(就是所有的action放到最后)
+-->
+<global-results>
+<result name="error">/error.jsp</result>
+</global-results>
+<action name="upload" class="com.panda.action.FileUpLoadAction" method="doFile">
+<result name="success">/success.jsp</result>
+<result name="input">/FileUpLoad.jsp</result>
+</action>
+<action name="download" class="com.panda.action.FileDownLoadAction">
+<result name="success" type="stream">
+<param name="inputName">targetFile</param>
+<param name="contentDisposition">attachment;filename=${filename}</param>
+<param name="contentType">application/octet-stream</param>
+</result>
+</action>
+</package>
+</struts>
